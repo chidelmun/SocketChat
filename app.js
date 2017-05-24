@@ -17,15 +17,21 @@ server.listen(8080, function(){
 })
 
 io.on('connection', function(socket){
-	console.log("A user connected ");
+	
+
 	socket.on('disconnect', function(){
+		users.splice(users.indexOf(socket.username),1);
 		console.log( socket.username + " left..");
+		console.log(users.length + " Connected");
 	});
 
 	
 	socket.username = "";
 	socket.on('add user', function(data){
+		users = [];
+		console.log("A user connected ");
 		socket.username = data;
+		users.push(socket.username);
 		console.log("Message : " + data);
 	});
 
