@@ -48,19 +48,19 @@
 	<script>
 	$(function(){
 		var socket = io();
-		$('#chat').hide();
+		$('#chat').hide(500);
 		// socket.emit('new user', "Welcome To Chat Room");
 		$('form').submit(function(){
 			socket.emit('new message', $('#msg').val());
-			$('#txt').append("<p class='text-danger'> " +$('#msg').val()+"</p>")
+			$('#txt').append(" <p class='text-danger'>  <span class='text-primary'> Me : </span>" +$('#msg').val()+"</p>")
 			$('#msg').val(" ");
 			return false;
 		});
 
 		$('#userform').submit(function(){
 			socket.emit('add user', $('#username').val());
-			$('#userform').hide();
-			$('#chat').show();
+			$('#userform').hide(500);
+			$('#chat').show(500);
 		});
 
 		socket.on('message', function(msg){
