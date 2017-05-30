@@ -11,12 +11,20 @@
 
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-
-    		<form id="userform">
-    			<h3 class="text-success"> Enter username to Join Chat </h3>
-    			<input size="45" id="username" type="text" name="user">
-    			<input class="btn btn-success" type="submit" name="Join">
-    		</form>
+        <div class="container">
+            <div class="row">
+            <div class="col-md-6"> </div>
+                <div class="col-md-4"> 
+                    <form id="userform">
+                        <h3 class="text-success"> Enter username to Join Chat </h3>
+                        <input size="45" class="form-control input-lg"  id="username" type="text" name="user">
+                        <input class="btn btn-success" type="submit" name="Join">
+                    </form>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    		
 
     <div class="container">
     	<div id="chat" class="row">
@@ -25,14 +33,14 @@
     			
     		</div>
 
-    		<div class="col-md-8">
-    		<div id="txt" style="height: 400px;">
+    		<div data-spy="scroll" class="col-md-8">
+    		<div id="txt" style="">
     			<h3 class="text-success">Enter Text Message</h3>
     		</div>
 
     		<form>
-    			<input size="45" id="msg" type="text" name="message">
-    			<input class="btn btn-primary" type="submit" name="Send">
+    			<input class="form-control input-lg" size="45" id="msg" type="text" name="message">
+    			<span><input class="btn btn-primary" type="submit" name="Send"></span>
     		</form>
 
     			
@@ -47,12 +55,13 @@
 
 	<script>
 	$(function(){
+        $('form,input,select,textarea').attr("autocomplete", "off");
 		var socket = io();
 		$('#chat').hide(500);
 		// socket.emit('new user', "Welcome To Chat Room");
 		$('form').submit(function(){
 			socket.emit('new message', $('#msg').val());
-			$('#txt').append(" <p class='text-danger'>  <span class='text-primary'> Me : </span>" +$('#msg').val()+"</p>")
+			$('#txt').append("<div class='well well-lg'> <p class='text-danger'>  <span class='text-primary'> Me : </span>" +$('#msg').val()+"</p> </div>")
 			$('#msg').val(" ");
 			return false;
 		});
@@ -65,7 +74,7 @@
 
 		socket.on('message', function(msg){
 
-			$('#txt').append("<p class='text-success'> " +msg+"</p>")
+			$('#txt').append("<div class='well well-lg'> <p class='text-success'> " +msg+"</p> </div>")
 		});
 
 
